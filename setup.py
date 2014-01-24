@@ -15,9 +15,20 @@ class mytest(test):
         from runtests import runtests
         runtests()
 
+
+version = '0.2.3'
+import sys
+if 'sdist' in sys.argv:
+    import mmf_release_tools
+    version = mmf_release_tools.generate_release_version(version, __file__)
+    mmf_release_tools.write_release_version(version)
+else:
+    with open("RELEASE-VERSION", "r") as f:
+        version = f.readlines()[0].strip()
+
 setup(
     name='nexus',
-    version='0.3.0',
+    version=version,
     author='Disqus',
     author_email='opensource@disqus.com',
     url='http://github.com/disqus/nexus',
